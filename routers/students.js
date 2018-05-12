@@ -11,9 +11,20 @@ module.exports = function(app, connection){
                 res.json(result);
             });
         })
+
         .post(function (req, res) {
-            res.send('Add a new student')
+            let student = req.body;
+
+            let sql = `insert into uni_student (firstName, lastName, major, credits) values ('${student.firstName}','${student.lastName}','${student.major}','${student.credits}')`;
+            connection.query(sql, function (err, result) {
+                if (err)
+                    throw err;
+
+                res.json(result);
+            });
+
         })
+
         .put(function (req, res) {
             res.send('Update a student')
         })
