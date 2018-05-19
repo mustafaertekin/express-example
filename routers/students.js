@@ -1,5 +1,4 @@
 module.exports = function(app, connection){
-
     app.route('/students')
         .get(function (req, res) {
 
@@ -25,13 +24,6 @@ module.exports = function(app, connection){
 
         })
 
-        .put(function (req, res) {
-            res.send('Update a student')
-        })
-        .delete(function (req, res) {
-            res.send('Delete a student')
-        });
-
 
 
     app.route('/students/:id')
@@ -45,5 +37,35 @@ module.exports = function(app, connection){
                     res.json(result);
                 });
             }
-        );
+        )
+
+        .put(function (req, res) {
+                let student = req.body;
+
+                let sql = `UPDATE uni_student
+                        SET firstName='${student.firstName}', 
+                            lastName='${student.lastName}', 
+                            major='${student.major}', 
+                            credits=${student.credits} 
+                        WHERE stuId=${req.params.id}`;
+
+                connection.query(sql, function (err, result) {
+                    if (err)
+                        throw err;
+
+                    res.json(result);
+            });
+        })
+
+        .delete(function (req, res) {
+
+            let sql = `delete from uni_student where stuId=${req.params.id}`;
+            connection.query(sql, function (err, result) {
+                if (err)
+                    throw err;
+
+                res.json(result);
+            });
+        });
+
 };

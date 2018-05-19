@@ -1,11 +1,7 @@
-module.exports = function(app){
+module.exports = function(app, connection){
     app.route('/enrollments')
-        .get(function (req, res) {
-            res.send('Get all enrollments')
-        })
-        .post(function (req, res) {
-            res.send('Add a new enrollment')
-        })
+
+
         .put(function (req, res) {
             res.send('Update an enrollment')
         })
@@ -14,7 +10,40 @@ module.exports = function(app){
         })
 
     app.route('/enrollments/students/:stuId/classes/:classId')
-        .get(function (req, res) {
-            res.send('Get the student with id: ' + req.params.stuId + ", " + req.params.classId)
-        })
+        .get((req, res) =>  {
+
+                let sql = `SELECT std.firstName Vorname, std.lastName Nachname, cls.name Fach, enr.grade Note
+                           FROM
+                                uni_enrollment enr INNER JOIN uni_student std on(enr.fk_stuId=std.stuId)
+                                                   INNER JOIN uni_class cls on(enr.fk_classNumber=cls.classNumber)
+                           WHERE std.stuId=${req.params.classId}
+                                 AND
+                                 cls.classNumber=${req.params.classId}`;
+
+                connection.query(sql, function (err, result) {
+                    if (err)
+                        throw err;
+
+                    res.json(result);
+                });
+            }
+        )
+
+        .put((req, res) =>  {
+
+                let grade = req.body.grade;
+                let studentId = req.params.stuId;
+                let classId = req.params.classId;
+
+                let sql = `UPDATE uni_enrollment enr SET grade=${grade}
+                       WHERE enr.fk_stuId=${studentId} AND enr.fk_classNumber=${classId}`;
+
+                connection.query(sql, function (err, result) {
+                    if (err)
+                        throw err;
+
+                    res.json(result);
+                });
+            }
+        )
 }
