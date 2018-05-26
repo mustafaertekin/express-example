@@ -1,14 +1,16 @@
 module.exports = function(app, connection){
     app.route('/students')
         .get(function (req, res) {
-
-            let sql = "select * from uni_student";
+            connection.student.findById(3).then(result => {
+                res.json(result);
+            })
+            /* let sql = "select * from uni_student";
             connection.query(sql, function (err, result) {
                 if (err)
                     throw err;
 
                 res.json(result);
-            });
+            }); */
         })
 
         .post(function (req, res) {
