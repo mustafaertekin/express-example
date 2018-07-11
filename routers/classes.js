@@ -27,14 +27,15 @@ module.exports = function(app, connection){
 
     app.route('/classes/:id')
         .get((req, res) =>  {
-
-                let sql = `select * from uni_class where classNumber=${req.params.id}`;
-                connection.query(sql, function (err, result) {
-                    if (err)
-                        throw err;
-
-                    res.json(result);
-                });
+            connection.lecture.find({
+                include: [{
+                    model: connection.student,
+                    as:'student', 
+                }],
+                 where: { classNumber: req.params.id }
+                }).then(result => {
+                   res.json(result);
+                }); 
             }
         )
 

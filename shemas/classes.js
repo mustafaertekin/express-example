@@ -1,5 +1,6 @@
 const sequelize = require('sequelize');
 
+
 exports.init = (connection) => {
     return connection.define('uni_class', {
         classNumber: {
@@ -10,5 +11,5 @@ exports.init = (connection) => {
         name: sequelize.STRING(50),
         schedule: sequelize.DATE,
         room: sequelize.INTEGER
-    })
+    });
 }

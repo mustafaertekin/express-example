@@ -1,5 +1,5 @@
 const sequelize = require('sequelize');
-
+ 
 exports.init = (connection) => {
     return connection.define('uni_student', {
         stuId: {
@@ -11,5 +11,5 @@ exports.init = (connection) => {
         lastName: sequelize.STRING(50),
         major: sequelize.STRING(20),
         credits: sequelize.INTEGER
-    })
+    });
 }

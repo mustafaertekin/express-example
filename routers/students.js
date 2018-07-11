@@ -1,16 +1,15 @@
 module.exports = function(app, connection){
     app.route('/students')
-        .get(function (req, res) {
-            connection.student.findById(3).then(result => {
-                res.json(result);
-            })
-            /* let sql = "select * from uni_student";
-            connection.query(sql, function (err, result) {
-                if (err)
-                    throw err;
-
-                res.json(result);
-            }); */
+    .get(function (req, res) {  
+        connection.student.find({
+            include: [{
+                model: connection.lecture,
+                as:'class', 
+            }],
+            where: { stuId: 5 }
+            }).then(result => {
+               res.json(result);
+            });
         })
 
         .post(function (req, res) {
