@@ -16,3 +16,17 @@ require("./routers/classes.js")(app, connection);
 require("./routers/enrollments.js")(app, connection);
  
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
+
+
+/**
+ * TODOs : 
+ * student 
+ * class
+ * school
+ * session
+ * address
+ * teacher
+ * 
+ * 
+ * 
+ */

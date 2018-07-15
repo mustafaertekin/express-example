@@ -1,18 +1,8 @@
-module.exports = function(app, connection){
-    app.route('/students')
-    .get(function (req, res) {  
-        connection.student.find({
-            include: [{
-                model: connection.lecture,
-                as:'class', 
-            }],
-            where: { stuId: 5 }
-            }).then(result => {
-               res.json(result);
-            });
-        })
+const { create, remove, update, get, getOne } = require('../controller/student');
 
-        .post(function (req, res) {
+module.exports = function(app, connection){
+    app.route('/students').get((req, res) => get(req,res, connection))
+       .post(function (req, res) {
             let student = req.body;
 
             let sql = `insert into uni_student (firstName, lastName, major, credits) values ('${student.firstName}','${student.lastName}','${student.major}','${student.credits}')`;
@@ -28,17 +18,7 @@ module.exports = function(app, connection){
 
 
     app.route('/students/:id')
-        .get((req, res) =>  {
-
-                let sql = `select * from uni_student where stuId=${req.params.id}`;
-                connection.query(sql, function (err, result) {
-                    if (err)
-                        throw err;
-
-                    res.json(result);
-                });
-            }
-        )
+        .get((req, res) => getOne(req, res, connection))
 
         .put(function (req, res) {
                 let student = req.body;

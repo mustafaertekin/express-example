@@ -22,7 +22,12 @@ exports.init = () => {
     ] = shemas.init(connection);
     
     // TODO :  this can be put on the req object and get it from there.
-    const sequalize = { connection, student, lecture, enrollment };
+    const sequalize = {
+        connection: connection,
+        student,
+        lecture,
+        enrollment
+    };
 
     // UNDER HERE, DEFINE SCHEMA RELATIONSHIPS
     sequalize.student.belongsToMany(sequalize.lecture, {
