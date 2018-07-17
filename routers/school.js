@@ -1,13 +1,13 @@
-const { create, remove, update, get, getOne } = require('../controller/students');
+const { create, remove, update, get, getOne } = require('../controller/school');
 
 module.exports = function(app, connection){
-    app.route('/students')
+    app.route('/school')
        .get((req, res) => get(req,res, connection))
        .post((req, res) => create(req,res, connection))
 
 
 
-    app.route('/students/:id')
+    app.route('/school/:id')
         .get((req, res) => getOne(req, res, connection))
 
         .put((req, res) => update(req, res, connection))

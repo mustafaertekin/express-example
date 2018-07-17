@@ -2,8 +2,8 @@ const Sequelize = require('sequelize');
 var shemas = require('./shemas');
 exports.init = () => {
     const connection = new Sequelize(
-        'db_itclub', 'db_administrator', '1tclub_db_pass!', {
-        host: 'db4free.net',
+        'test_db', 'mertekin', 'jOdj892', {
+        host: 'webhuus.ch',
         dialect: 'mysql',
         define: {
             freezeTableName: true,
@@ -17,19 +17,29 @@ exports.init = () => {
     
     const [
         student,
+        session,
+        teacher,
+        school,
         lecture,
-        enrollment
+        address
     ] = shemas.init(connection);
     
+
+    // connection.sync({ force: true });
+
+
     // TODO :  this can be put on the req object and get it from there.
     const sequalize = {
         connection: connection,
         student,
         lecture,
-        enrollment
+        address,
+        session,
+        school,
+        teacher
     };
 
-    // UNDER HERE, DEFINE SCHEMA RELATIONSHIPS
+/*     // UNDER HERE, DEFINE SCHEMA RELATIONSHIPS
     sequalize.student.belongsToMany(sequalize.lecture, {
         through: sequalize.enrollment,
         as: 'class',
@@ -41,6 +51,7 @@ exports.init = () => {
         as: 'student',
         foreignKey: 'fk_classNumber', 
     });
-     
+      */
+
     return sequalize;
 }

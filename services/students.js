@@ -1,11 +1,9 @@
-
-
-const insert = (connection) => {
-
+const insert = (connection, student) => {
+    return connection.student.create(student);
 }
 
-const removeById = (connection) => {
-    
+const removeById = (connection, id) => {
+    return connection.student.destroy({ where: { stuId: id}});
 }
 
 const findById = (connection, id) => { 
@@ -16,8 +14,12 @@ const findAll = (connection) => {
     return connection.student.findAll({});
 }
 
-const updateById = (connection) => {
-    
+const updateById = (connection, student) => {
+    return connection.student.findOne({ where: { stuId: student.stuId}})
+            .then(dbObject => {
+                 return dbObject.update(student);
+            });
+    // return connection.student.update({ where: { stuId: id}});
 }
 
 module.exports = {

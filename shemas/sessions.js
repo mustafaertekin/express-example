@@ -1,13 +1,12 @@
 const sequelize = require('sequelize');
-
-
+ 
 exports.init = (connection) => {
-    return connection.define('class', {
-        classId: {
+    return connection.define('session', {
+        sessionId: {
             type: sequelize.INTEGER,
             primaryKey: true,
             autoIncrement: true
         },
-        className: sequelize.STRING(20)
+        sessionName: sequelize.STRING(20)
     });
 }
