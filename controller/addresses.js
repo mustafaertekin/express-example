@@ -1,7 +1,7 @@
 const { insert, removeById , findById, findAll, updateById } =  require('../services/addresses');
 
 const create = (req, res, connection) => {
-  insert(connection)
+  insert(connection, req.body)
   .then(result => {
     res.json(result);
   })
@@ -33,7 +33,7 @@ const getOne = (req, res, connection) => {
 }
 
 const update = (req, res, connection) => {
-  updateById(connection, req.params.id)
+  updateById(connection, req.body)
   .then(result => {
     res.json(result);
   })

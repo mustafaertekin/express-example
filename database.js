@@ -20,7 +20,7 @@ exports.init = () => {
         session,
         teacher,
         school,
-        lecture,
+        clazz,
         address
     ] = shemas.init(connection);
     
@@ -32,7 +32,7 @@ exports.init = () => {
     const sequalize = {
         connection: connection,
         student,
-        lecture,
+        clazz,
         address,
         session,
         school,

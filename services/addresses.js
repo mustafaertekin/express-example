@@ -1,21 +1,24 @@
-const insert = (connection) => {
-    return connection.address.insert({});
+const insert = (connection, address) => {
+    return connection.address.create(address);
 }
 
-const removeById = (connection) => {
-    return connection.address.removeById({ where: { addressId: id}});
+const removeById = (connection, id) => {
+    return connection.address.destroy({ where: { addressId: id}});
 }
 
 const findById = (connection, id) => { 
-    return connection.address.findById({ where: { addressId: id}});
+    return connection.address.findOne({ where: { addressId: id}});
 }
 
 const findAll = (connection) => {
     return connection.address.findAll({});
 }
 
-const updateById = (connection) => {
-    return connection.address.updateById({ where: { addressId: id}});
+const updateById = (connection, address) => {
+    return connection.address.findOne({ where: { addressId: address.addressId}})
+            .then(dbObject => {
+                 return dbObject.update(address);
+            });
 }
 
 module.exports = {

@@ -1,21 +1,24 @@
-const insert = (connection) => {
-    return connection.classes.insert({});
+const insert = (connection, clazz) => {
+    return connection.clazz.create(clazz);
 }
 
-const removeById = (connection) => {
-    return connection.classes.removeById({ where: { classId: id}});
+const removeById = (connection, id) => {
+    return connection.clazz.destroy({ where: { classId: id}});
 }
 
 const findById = (connection, id) => { 
-    return connection.classes.findById({ where: { classId: id}});
+    return connection.clazz.findOne({ where: { classId: id}});
 }
 
 const findAll = (connection) => {
-    return connection.classes.findAll({});
+    return connection.clazz.findAll({});
 }
 
-const updateById = (connection) => {
-    return connection.classes.updateById({ where: { classId: id}});
+const updateById = (connection, clazz) => {
+    return connection.clazz.findOne({ where: { classId: clazz.classId}})
+            .then(dbObject => {
+                 return dbObject.update(clazz);
+            });
 }
 
 module.exports = {

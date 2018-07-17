@@ -15,7 +15,7 @@ const findAll = (connection) => {
 }
 
 const updateById = (connection, school) => {
-    return connection.school.findOne({ where: { stuId: school.schoolId}})
+    return connection.school.findOne({ where: { schoolId: school.schoolId}})
             .then(dbObject => {
                  return dbObject.update(school);
             });

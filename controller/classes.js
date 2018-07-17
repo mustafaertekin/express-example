@@ -1,7 +1,7 @@
 const { insert, removeById , findById, findAll, updateById } =  require('../services/classes');
 
 const create = (req, res, connection) => {
-  insert(connection)
+  insert(connection, req.body)
   .then(result => {
     res.json(result);
   })

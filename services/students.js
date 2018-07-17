@@ -19,7 +19,6 @@ const updateById = (connection, student) => {
             .then(dbObject => {
                  return dbObject.update(student);
             });
-    // return connection.student.update({ where: { stuId: id}});
 }
 
 module.exports = {

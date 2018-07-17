@@ -15,6 +15,8 @@ require("./routers/students")(app, connection);
 require("./routers/classes")(app, connection);
 require("./routers/sessions")(app, connection);
 require("./routers/teachers")(app, connection);
+require("./routers/school")(app, connection);
+require("./routers/addresses")(app, connection);
  
 app.listen(3000, () => console.log('Example app listening on port 3000!'));
 

@@ -33,7 +33,7 @@ const getOne = (req, res, connection) => {
 }
 
 const update = (req, res, connection) => {
-  updateById(connection, req.params.id)
+  updateById(connection, req.body)
   .then(result => {
     res.json(result);
   })
